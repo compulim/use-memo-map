@@ -4,9 +4,9 @@ Memoizes calls to array map function similar to `React.useMemo`. Memoized result
 
 ## Background
 
-tl;dr, `React.useMemo()` cache a single call. `useMemoAll()` cache multiple calls.
+tl;dr, `React.useMemo()` cache a single call. `useMemoMap()` cache multiple calls.
 
-If you have a variable-length array and would like to cache `Array.map` like `useMemo`, you can use `useMemoAll` to cache all calls.
+If you have a variable-length array and would like to cache `Array.map` like `useMemo`, you can use `useMemoMap` to cache all calls.
 
 ## API
 
@@ -95,7 +95,7 @@ Note: the "cache pool" will be saved during `useEffect()` callback. This is simi
 
 ### Index is always `-1`
 
-Unlike `Array.map()` which pass the `index` value as second argument, `useMemoAll()` will always pass `-1`. This is by design.
+Unlike `Array.map()` which pass the `index` value as second argument, `useMemoMap()` will always pass `-1`. This is by design.
 
 Calls to mapper function could be cached and will not be called again if only `index` has changed. To protect wrong use of `index` value, we pass `-1` instead.
 
