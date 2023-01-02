@@ -4,7 +4,7 @@ Memoizes calls to array map function similar to `React.useMemo`. Memoized result
 
 ## Background
 
-tl;dr, `React.useMemo()` can only cache a single call. `useMemoAll()` cache multiple calls.
+tl;dr, `React.useMemo()` cache a single call. `useMemoAll()` cache multiple calls.
 
 If you have a variable-length array and would like to cache `Array.map` like `useMemo`, you can use `useMemoAll` to cache all calls.
 
@@ -24,7 +24,9 @@ function useMemoMap<T = unknown, R = unknown>(
 For example, converting a `number` array into a `string` array.
 
 ```ts
-function useMemoMap(mapper: (item: number) => string): (array: readonly number[]) => readonly string[];
+function useMemoMap(
+  mapper: (item: number, index: -1, array: readonly number[]) => string
+): (array: readonly number[]) => readonly string[];
 ```
 
 ## How to use
@@ -108,3 +110,11 @@ If you prefer mutable array, call `[...result]` to clone the array.
 ### Custom equality function
 
 We use `Object.is` for equality check. You can provide a different equality check via `options.itemEquality`.
+
+## Contributions
+
+Like us? [Star](https://github.com/compulim/use-memo-map/stargazers) us.
+
+Want to make it better? [File](https://github.com/compulim/use-memo-map/issues) us an issue.
+
+Don't like something you see? [Submit](https://github.com/compulim/use-memo-map/pulls) a pull request.
