@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import useMemoMap from './useMemoMap';
 
 test('simple scenario', () => {
-  // SETUP: A mapper of x *= 10.
+  // GIVEN: A mapper of x *= 10.
   const mapper = jest.fn(x => x * 10);
 
   // WHEN: Maps [1, 2, 3].
@@ -37,7 +37,7 @@ test('simple scenario', () => {
 });
 
 test('should not remember across more than 2 renders', () => {
-  // SETUP: A mapper of x *= 10.
+  // GIVEN: A mapper of x *= 10.
   const mapper = jest.fn(x => x * 10);
 
   // WHEN: Maps with [1, 2].
@@ -79,7 +79,7 @@ test('should not remember across more than 2 renders', () => {
 });
 
 test('should forget after mapper changed', () => {
-  // SETUP: 2 mappers: x *= 10 and x *= 11.
+  // GIVEN: 2 mappers: x *= 10 and x *= 11.
   const mapper1 = jest.fn(x => x * 10);
   const mapper2 = jest.fn(x => x * 11);
 
@@ -110,7 +110,7 @@ test('should forget after mapper changed', () => {
 });
 
 test('should memo the callback', () => {
-  // SETUP: Maps for the first time.
+  // GIVEN: Maps for the first time.
   const { rerender, result } = renderHook(() => useMemoMap(x => x));
 
   // WHEN: Maps for the second time.
@@ -185,7 +185,7 @@ test('call mapper 2 times should memoize all of them in a single pool', () => {
 test('should call mapper with thisArg', () => {
   const input = [1, 2, 3];
 
-  // SETUP: A mapper of x *= 10 with arguments check.
+  // GIVEN: A mapper of x *= 10 with arguments check.
   const mapper = jest.fn(function (x, index, array) {
     expect(this).toBe(input);
     expect(index).toBe(-1);
