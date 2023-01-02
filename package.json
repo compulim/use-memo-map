@@ -1,0 +1,11 @@
+{
+  "name": "use-memo-map-root",
+  "version": "0.0.0-0",
+  "description": "",
+  "private": true,
+  "author": "William Wong (https://github.com/compulim)",
+  "license": "MIT",
+  "scripts": {
+    "build": "cd packages/use-memo-map && npm run build"
+  }
+}
