@@ -56,13 +56,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - name: Set up .npmrc
-        run: echo @compulim:registry=https://npm.pkg.github.com > .npmrc
       - name: Download tarball artifact
         uses: actions/download-artifact@v3.0.1
         with:
           name: tarball
-      - run: npm publish `ls *.tgz`
+      - run: npm publish --tag main `ls *.tgz`
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
