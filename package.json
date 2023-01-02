@@ -8,7 +8,7 @@
   "scripts": {
     "build": "cd packages/use-memo-map && npm run build",
     "prepare": "cd packages/use-memo-map && npm ci",
-    "test": "npm run test:unit-test && npm run test:integration",
+    "test": "npm run test:unit && npm run test:integration",
     "test:integration": "cd packages/integration-test && npm run install && npm test",
     "test:unit": "cd packages/use-memo-map && npm test"
   }
