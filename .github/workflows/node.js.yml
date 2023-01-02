@@ -23,7 +23,10 @@ jobs:
           cache: 'npm'
       - run: npm clean-install
       - run: npm run build --if-present
-      - run: npm pack
+      - name: npm pack
+        run: |
+          cd packages/use-memo-map
+          npm pack
       - name: Upload build artifact
         uses: actions/upload-artifact@v3.1.1
         with:
