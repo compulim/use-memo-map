@@ -48,18 +48,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-          token: ${{ secrets.NODE_AUTH_TOKEN }}
       - name: Download tarball artifact
         uses: actions/download-artifact@v3.0.1
         with:
           name: tarball
       - run: npm publish --tag main `ls *.tgz`
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
