@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v3.0.1
         with:
           name: build
-          path: packages/integration-test
+          path: packages/use-memo-map
       - name: npm install
         run: |
           cd packages/integration-test
