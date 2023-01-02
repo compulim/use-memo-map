@@ -17,9 +17,9 @@ test('simple scenario', () => {
 
   // THEN: It should called the mapper 3 times in total.
   expect(mapper).toHaveBeenCalledTimes(3);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2);
-  expect(mapper).toHaveBeenNthCalledWith(3, 3);
+  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2, 3]);
+  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2, 3]);
+  expect(mapper).toHaveBeenNthCalledWith(3, 3, -1, [1, 2, 3]);
   expect(mapper).toHaveNthReturnedWith(1, 10);
   expect(mapper).toHaveNthReturnedWith(2, 20);
   expect(mapper).toHaveNthReturnedWith(3, 30);
@@ -32,7 +32,7 @@ test('simple scenario', () => {
 
   // THEN: It should called the mapper 4 times in total.
   expect(mapper).toHaveBeenCalledTimes(4);
-  expect(mapper).toHaveBeenNthCalledWith(4, 4);
+  expect(mapper).toHaveBeenNthCalledWith(4, 4, -1, [1, 2, 3, 4]);
   expect(mapper).toHaveNthReturnedWith(4, 40);
 });
 
@@ -50,8 +50,8 @@ test('should not remember across more than 2 renders', () => {
 
   // THEN: It should call the mapper 2 times in total.
   expect(mapper).toHaveBeenCalledTimes(2);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2);
+  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2]);
+  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2]);
   expect(mapper).toHaveNthReturnedWith(1, 10);
   expect(mapper).toHaveNthReturnedWith(2, 20);
 
@@ -63,7 +63,7 @@ test('should not remember across more than 2 renders', () => {
 
   // THEN: It should call the mapper 3 times in total.
   expect(mapper).toHaveBeenCalledTimes(3);
-  expect(mapper).toHaveBeenNthCalledWith(3, 3);
+  expect(mapper).toHaveBeenNthCalledWith(3, 3, -1, [2, 3]);
   expect(mapper).toHaveNthReturnedWith(3, 30);
 
   // WHEN: Maps [1, 2] again.
@@ -74,7 +74,7 @@ test('should not remember across more than 2 renders', () => {
 
   // THEN: It should call the mapper 4 times in total.
   expect(mapper).toHaveBeenCalledTimes(4);
-  expect(mapper).toHaveBeenNthCalledWith(4, 1);
+  expect(mapper).toHaveBeenNthCalledWith(4, 1, -1, [1, 2]);
   expect(mapper).toHaveNthReturnedWith(4, 10);
 });
 
@@ -138,9 +138,9 @@ test('should use custom equality function', () => {
 
   // THEN: It should have called the mapper 2 times.
   expect(mapper).toHaveBeenCalledTimes(2);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1);
+  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2, 3]);
   expect(mapper).toHaveNthReturnedWith(1, 10);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2);
+  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2, 3]);
   expect(mapper).toHaveNthReturnedWith(2, 20);
 });
 
@@ -162,11 +162,11 @@ test('call mapper 2 times should memoize all of them in a single pool', () => {
 
   // THEN: It should have called the mapper 3 times.
   expect(mapper).toHaveBeenCalledTimes(3);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1);
+  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2]);
   expect(mapper).toHaveNthReturnedWith(1, 10);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2);
+  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2]);
   expect(mapper).toHaveNthReturnedWith(2, 20);
-  expect(mapper).toHaveBeenNthCalledWith(3, 3);
+  expect(mapper).toHaveBeenNthCalledWith(3, 3, -1, [2, 3]);
   expect(mapper).toHaveNthReturnedWith(3, 30);
 
   // WHEN: Maps again.
@@ -182,4 +182,24 @@ test('call mapper 2 times should memoize all of them in a single pool', () => {
   expect(mapper).toHaveBeenCalledTimes(3);
 });
 
-// TODO: Test thisArg and 3rd argument.
+test('should call mapper with thisArg', () => {
+  const input = [1, 2, 3];
+
+  // SETUP: A mapper of x *= 10 with arguments check.
+  const mapper = jest.fn(function (x, index, array) {
+    expect(this).toBe(input);
+    expect(index).toBe(-1);
+    expect(array).toBe(input);
+
+    return x * 10;
+  });
+
+  // WHEN: Maps [1, 2, 3].
+  const { result } = renderHook(() => useMemoMap(mapper)(input));
+
+  // THEN: It should return [10, 20, 30].
+  expect(result.current).toEqual([10, 20, 30]);
+
+  // THEN: It should called the mapper 3 times in total.
+  expect(mapper).toHaveBeenCalledTimes(3);
+});
