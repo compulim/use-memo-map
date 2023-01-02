@@ -1,5 +1,5 @@
-name: Bug report (open source)
-description: Create a report to help us improve our product.
+name: Bug report
+description: Use this template to report a bug.
 labels:
   - bug
 body:
