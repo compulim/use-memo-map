@@ -1,0 +1,65 @@
+name: Continuous deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - id: set-version
+        name: Run npx version-from-git --no-git-tag-version
+        run: |
+          npx version-from-git --no-git-tag-version
+          echo version=`cat package.json | jq -r '.version'` > $GITHUB_OUTPUT
+      - name: Propagate versions
+        run: |
+          cd packages/use-memo-map
+          npm version --no-git-tag-version ${{ steps.set-version.outputs.version }}
+      - run: npm clean-install
+      - run: npm run build --if-present
+      - name: Run npm pack
+        run: |
+          cd packages/use-memo-map
+          npm pack
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: build
+          path: packages/use-memo-map/*.tgz
+
+  # publish:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+
+  #   steps:
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: 'npm'
+  #         registry-url: https://npm.pkg.github.com/
+  #     - name: Download build artifact
+  #       uses: actions/download-artifact@v3.0.1
+  #       with:
+  #         name: build
+  #         path: packages/use-memo-map
+  #     - run: npm publish
+  #       env:
+  #           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
