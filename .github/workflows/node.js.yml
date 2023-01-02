@@ -63,5 +63,5 @@ jobs:
           npm install
       - name: Run integration tests
         run: |
-          cd package/integration-test
+          cd packages/integration-test
           npm test
