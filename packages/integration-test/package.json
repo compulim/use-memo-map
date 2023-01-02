@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "prepare": "npm install ../use-memo-map-e2e-0.0.0-0.tgz",
+    "prepare": "npm install ../use-memo-map/use-memo-map-0.0.0-0.tgz",
     "test": "jest"
   },
   "author": "William Wong (https://github.com/compulim)",
