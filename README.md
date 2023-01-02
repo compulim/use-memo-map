@@ -8,6 +8,29 @@ tl;dr, `React.useMemo()` cache a single call. `useMemoMap()` cache multiple call
 
 If you have a variable-length array and would like to cache `Array.map` like `useMemo`, you can use `useMemoMap` to cache all calls.
 
+## How to use
+
+```js
+import { useMemoMap } from 'use-memo-map';
+
+const MyComponent = () => {
+  const multiplyBy10 = useCallback(value => {
+    // Calls to this function will be memoized based on its first argument.
+    // You can do expensive calls here.
+    return value * 10;
+  }, []);
+
+  // useMemoMap() will return a function that take an array.
+  const map = useMemoMap(multiplyBy10);
+
+  const output = map([1, 2, 3]); // Returns [10, 20, 30].
+
+  return ...;
+};
+
+export default MyComponent;
+```
+
 ## API
 
 ```ts
@@ -27,29 +50,6 @@ For example, converting a `number` array into a `string` array.
 function useMemoMap(
   mapper: (item: number, index: -1, array: readonly number[]) => string
 ): (array: readonly number[]) => readonly string[];
-```
-
-## How to use
-
-```js
-import { useMemoMap } from 'use-memo-map';
-
-const MyComponent = () => {
-  const multiplyBy10 = useCallback(value => {
-    // Calls to this function will be memoized based on its first argument.
-    // You can do expensive calls here.
-    return value * 10;
-  }, []);
-
-  // useMemoMap() will return a function similar to Array.map().
-  const map = useMemoMap(multiplyBy10);
-
-  const output = map([1, 2, 3]); // Returns [10, 20, 30].
-
-  return ...;
-};
-
-export default MyComponent;
 ```
 
 ## Behaviors
