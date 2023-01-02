@@ -98,7 +98,7 @@ test('should forget after mapper changed', () => {
   expect(mapper1).toHaveBeenCalledTimes(3);
   expect(mapper2).toHaveBeenCalledTimes(0);
 
-  // WHEN: Maps [1, 2, 3] with x*= 11.
+  // WHEN: Maps [1, 2, 3] with x *= 11.
   rerender({ input: [1, 2, 3], mapper: mapper2 });
 
   // THEN: It should return [11, 22, 33].
@@ -202,4 +202,27 @@ test('should call mapper with thisArg', () => {
 
   // THEN: It should called the mapper 3 times in total.
   expect(mapper).toHaveBeenCalledTimes(3);
+});
+
+test('should not cache with changing mapper function', () => {
+  // GIVEN: A "multiply by 10" mapper.
+  const multiplyBy10 = jest.fn(x => x * 10);
+
+  // WHEN: Maps [1, 2, 3] with a new function.
+  const { rerender, result } = renderHook(() => useMemoMap(x => multiplyBy10(x))([1, 2, 3]));
+
+  // THEN: It should return [10, 20, 30].
+  expect(result.current).toEqual([10, 20, 30]);
+
+  // THEN: It should called the mapper 3 times in total.
+  expect(multiplyBy10).toHaveBeenCalledTimes(3);
+
+  // WHEN: Re-render.
+  rerender();
+
+  // THEN: It should return [10, 20, 30].
+  expect(result.current).toEqual([10, 20, 30]);
+
+  // THEN: It should called the mapper 6 times in total.
+  expect(multiplyBy10).toHaveBeenCalledTimes(6);
 });
