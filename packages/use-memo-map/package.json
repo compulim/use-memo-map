@@ -23,6 +23,7 @@
     "build:babel:commonjs": "babel src --config-file ./babel.commonjs.config.json --extensions .ts,.tsx --out-dir ./lib/commonjs/",
     "build:babel:esmodules": "babel src --config-file ./babel.esmodules.config.json --extensions .ts,.tsx --out-dir ./lib/esmodules/",
     "build:typescript": "tsc --project ./src/tsconfig.declaration.json",
+    "precommit": "eslint ./src/",
     "test": "jest"
   },
   "repository": {

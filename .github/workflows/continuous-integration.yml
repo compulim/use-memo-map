@@ -20,6 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm clean-install
+      - name: Run ESLint
+        run: npm run precommit
       - run: npm run build --if-present
       - name: Run npm pack
         run: |

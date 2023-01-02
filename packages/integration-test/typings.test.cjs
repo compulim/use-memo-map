@@ -1,7 +1,7 @@
 const { createProgram, flattenDiagnosticMessageText, getPreEmitDiagnostics } = require('typescript');
 
 test('typings should work', () => {
-  // SETUP: TypeScript compiler to compile ./typings/simple.ts.
+  // GIVEN: TypeScript compiler to compile ./typings/simple.ts.
   const program = createProgram(['./typings/simple.ts'], { noEmit: true, strict: true });
 
   // WHEN: Compile.
