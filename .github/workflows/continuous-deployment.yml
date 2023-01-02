@@ -28,6 +28,10 @@ jobs:
         run: |
           cd packages/use-memo-map
           npm version --no-git-tag-version ${{ steps.set-version.outputs.version }}
+      - name: Copy documents
+        run: |
+          cp README.md packages/use-memo-map/
+          cp LICENSE packages/use-memo-map/
       - run: npm clean-install
       - run: npm run build --if-present
       - name: Run npm pack
@@ -48,16 +52,13 @@ jobs:
       contents: read
       packages: write
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           registry-url: https://npm.pkg.github.com/
+      - name: Set up .npmrc
+        run: echo @compulim:registry=https://npm.pkg.github.com > .npmrc
       - name: Download tarball artifact
         uses: actions/download-artifact@v3.0.1
         with:
