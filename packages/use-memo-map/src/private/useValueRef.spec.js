@@ -44,7 +44,10 @@ test('using ref in callback should return the most recent value', () => {
     ({ input }) => {
       const ref = useValueRef(input);
 
-      return useCallback(jest.fn(() => ref.current), [ref]);
+      return useCallback(
+        jest.fn(() => ref.current),
+        [ref]
+      );
     },
     { initialProps: { input: 123 } }
   );
