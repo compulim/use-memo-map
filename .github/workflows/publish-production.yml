@@ -1,33 +1,27 @@
-name: Continuous deployment
+name: Publish latest production
 
 on:
-  push:
-    branches: [mainxxx]
+  release:
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: 'npm'
-      - id: set-version
-        name: Run npx version-from-git --no-git-tag-version
-        run: |
-          npx version-from-git --no-git-tag-version
-          echo version=`cat package.json | jq -r '.version'` > $GITHUB_OUTPUT
+      - id: get-version
+        name: Get version
+        run: echo version=`cat package.json | jq -r '.version'` > $GITHUB_OUTPUT
       - name: Propagate versions
         run: |
           cd packages/use-memo-map
-          npm version --no-git-tag-version ${{ steps.set-version.outputs.version }}
+          npm version --no-git-tag-version ${{ steps.get-version.outputs.version }}
       - name: Copy documents
         run: |
           cp CHANGELOG.md packages/use-memo-map/
@@ -44,8 +38,11 @@ jobs:
         with:
           name: tarball
           path: packages/use-memo-map/*.tgz
+      - name: Upload tarball to release
+        run: gh release upload ${{ github.ref }} packages/use-memo-map/*.tgz
 
   publish:
+    if: ${{ !contains(jobs.build.steps.get-version.outputs.version, '-') }}
     needs: build
     runs-on: ubuntu-latest
 
@@ -58,6 +55,17 @@ jobs:
         uses: actions/download-artifact@v3.0.1
         with:
           name: tarball
-      - run: npm publish --tag main `ls *.tgz`
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #     - run: npm publish --tag main `ls *.tgz`
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  no-publish:
+    if: ${{ contains(jobs.build.steps.get-version.outputs.version, '-') }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
