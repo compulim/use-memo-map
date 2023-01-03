@@ -2,70 +2,16 @@ name: Publish latest production
 
 on:
   release:
-    types: [created]
+    types: [released]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-      - id: get-version
-        name: Get version
-        run: echo version=`cat package.json | jq -r '.version'` > $GITHUB_OUTPUT
-      - name: Propagate versions
-        run: |
-          cd packages/use-memo-map
-          npm version --no-git-tag-version ${{ steps.get-version.outputs.version }}
-      - name: Copy documents
-        run: |
-          cp CHANGELOG.md packages/use-memo-map/
-          cp README.md packages/use-memo-map/
-          cp LICENSE packages/use-memo-map/
-      - run: npm clean-install
-      - run: npm run build --if-present
-      - name: Run npm pack
-        run: |
-          cd packages/use-memo-map
-          npm pack
-      - name: Upload tarball artifact
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          name: tarball
-          path: packages/use-memo-map/*.tgz
-      - name: Upload tarball to release
-        run: gh release upload ${{ github.ref }} packages/use-memo-map/*.tgz
-
   publish:
-    if: ${{ !contains(jobs.build.steps.get-version.outputs.version, '-') }}
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - name: Download tarball artifact
-        uses: actions/download-artifact@v3.0.1
-        with:
-          name: tarball
+      - name: Download tarball
+        run: gh release download ${{ github.ref }}
+      - run: ls -la
   #     - run: npm publish --tag main `ls *.tgz`
   #       env:
   #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  no-publish:
-    if: ${{ contains(jobs.build.steps.get-version.outputs.version, '-') }}
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
