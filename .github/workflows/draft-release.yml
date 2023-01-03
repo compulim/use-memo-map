@@ -1,4 +1,4 @@
-name: Draft a release
+name: Draft release on push tag
 
 on:
   push:
@@ -22,7 +22,9 @@ jobs:
           echo version=`cat package.json | jq -r '.version'` >> $GITHUB_OUTPUT
       - name: Check version number
         if: ${{ contains(steps.get-version.outputs.version, '-') }}
-        run: exit 1
+        run: |
+          echo Version number must not be a prerelease.
+          exit 1
       - name: Propagate versions
         run: |
           cd packages/use-memo-map
