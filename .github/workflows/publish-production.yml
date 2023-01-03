@@ -10,8 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - id: get-version
+        name: Get tag
+        run: echo tag=`echo ${{ github.ref }} | awk '{ sub(/^refs\/tags\//, ""); print; }'` > $GITHUB_OUTPUT
       - name: Download tarball
-        run: gh release download ${{ github.ref }}
+        run: gh release download ${{ steps.get-version.outputs.tag }}
         env:
           GH_TOKEN: ${{ github.token }}
       - run: ls -la
