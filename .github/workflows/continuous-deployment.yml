@@ -54,6 +54,14 @@ jobs:
         uses: actions/download-artifact@v3.0.1
         with:
           name: tarball
+      - id: get-version
+        name: Get version
+        run: echo version=`tar --extract --file=../use-memo-map-0.0.0-0.tgz --to-stdout package/package.json | jq -r .version` > $GITHUB_OUTPUT
+      - if: ${{ contains(steps.get-version.outputs.version, '-') }}
+        name: Validate version
+        run: |
+          echo Cannot publish production version
+          exit 1
       - run: npm publish --tag main `ls *.tgz`
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
