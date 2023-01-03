@@ -57,10 +57,9 @@ jobs:
         uses: actions/download-artifact@v3.0.1
         with:
           name: tarball
-      - run: ls -la
-  #     - run: npm publish --tag main `ls *.tgz`
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish `ls ./*.tgz`
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-release:
     needs:
