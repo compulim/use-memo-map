@@ -52,7 +52,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-  publish:
+  publish-package:
     environment: production
     needs: build-and-draft
     runs-on: ubuntu-latest
@@ -63,10 +63,19 @@ jobs:
         with:
           name: tarball
       - run: ls -la
+  #     - run: npm publish --tag main `ls *.tgz`
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-release:
+    needs:
+      - build-and-draft
+      - publish-package
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
       - name: Publish release
         run: gh release edit ${{ needs.build-and-draft.outputs.tag }} --draft=false
         env:
           GH_TOKEN: ${{ github.token }}
-  #     - run: npm publish --tag main `ls *.tgz`
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
