@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2023-01-03
+
 ### Changed
 
 - Use [`use-ref-from`](https://npmjs.com/package/use-ref-from), by [@compulim](https://github.com/compulim) in PR [#2](https://github.com/compulim/use-memo-map/pull/2)
