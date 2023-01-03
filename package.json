@@ -10,7 +10,7 @@
     "precommit": "npm run precommit:main && npm run precommit:integration",
     "precommit:integration": "cd packages/use-memo-map && npm run precommit",
     "precommit:main": "cd packages/use-memo-map && npm run precommit",
-    "prepare": "cd packages/use-memo-map && npm ci",
+    "prepare": "cd packages/use-memo-map && npm clean-install",
     "test": "npm run test:unit && npm run test:integration",
     "test:integration": "cd packages/integration-test && npm install && npm test",
     "test:unit": "cd packages/use-memo-map && npm test"

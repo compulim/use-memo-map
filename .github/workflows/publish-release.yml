@@ -31,11 +31,6 @@ jobs:
         run: |
           cd packages/use-memo-map
           npm version --no-git-tag-version ${{ steps.get-version.outputs.version }}
-      - name: Copy documents
-        run: |
-          cp CHANGELOG.md packages/use-memo-map/
-          cp README.md packages/use-memo-map/
-          cp LICENSE packages/use-memo-map/
       - run: npm clean-install
       - run: npm run build --if-present
       - name: Run npm pack

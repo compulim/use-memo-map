@@ -24,6 +24,7 @@
     "build:babel:esmodules": "babel src --config-file ./babel.esmodules.config.json --extensions .ts,.tsx --out-dir ./lib/esmodules/",
     "build:typescript": "tsc --project ./src/tsconfig.declaration.json",
     "precommit": "eslint ./src/",
+    "prepack": "cp ../../CHANGELOG.md . && cp ../../LICENSE . && cp ../../README.md .",
     "test": "jest"
   },
   "repository": {
