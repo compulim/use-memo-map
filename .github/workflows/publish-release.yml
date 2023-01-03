@@ -43,7 +43,7 @@ jobs:
           name: tarball
           path: packages/use-memo-map/*.tgz
       - name: Draft a new release
-        run: gh release create ${{ steps.get-version.outputs.tag }} ./packages/use-memo-map/*.tgz --draft --notes-file ./CHANGELOG.md --verify-tag
+        run: gh release create ${{ steps.get-version.outputs.tag }} ./packages/use-memo-map/*.tgz --draft --notes-file ./CHANGELOG.md
         env:
           GH_TOKEN: ${{ github.token }}
 
