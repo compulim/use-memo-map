@@ -1,7 +1,7 @@
 {
   "name": "use-memo-map-root",
   "version": "0.0.3-0",
-  "description": "",
+  "description": "Memoizes calls to array map function similar to React.useMemo. Memoized results will survive next render.",
   "private": true,
   "author": "William Wong (https://github.com/compulim)",
   "license": "MIT",
