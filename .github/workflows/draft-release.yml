@@ -19,7 +19,7 @@ jobs:
         name: Get version
         run: echo version=`cat package.json | jq -r '.version'` > $GITHUB_OUTPUT
       - name: Check version number
-        if: ${{ contains(jobs.build.steps.get-version.outputs.version, '-') }}
+        if: ${{ contains(steps.get-version.outputs.version, '-') }}
         run: exit 1
       - name: Propagate versions
         run: |
