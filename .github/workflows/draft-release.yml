@@ -43,6 +43,8 @@ jobs:
           path: packages/use-memo-map/*.tgz
       - name: Upload tarball to release
         run: gh release upload ${{ github.ref }} packages/use-memo-map/*.tgz
+        env:
+          GH_TOKEN: ${{ github.token }}
 
   draft:
     needs: build
@@ -54,3 +56,5 @@ jobs:
         with:
           name: tarball
       - run: gh release create ${{ github.ref }} ./*.tgz --draft
+        env:
+          GH_TOKEN: ${{ github.token }}
