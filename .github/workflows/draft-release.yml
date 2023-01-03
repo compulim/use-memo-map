@@ -19,7 +19,7 @@ jobs:
         name: Get version
         run: |
           echo tag=`echo ${{ github.ref }} | awk '{ sub(/^refs\/tags\//, ""); print; }'` > $GITHUB_OUTPUT
-          echo version=`cat package.json | jq -r '.version'` > $GITHUB_OUTPUT
+          echo version=`cat package.json | jq -r '.version'` >> $GITHUB_OUTPUT
       - name: Check version number
         if: ${{ contains(steps.get-version.outputs.version, '-') }}
         run: exit 1
