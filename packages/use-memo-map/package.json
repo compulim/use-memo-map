@@ -3,7 +3,6 @@
   "version": "0.0.0-0",
   "description": "",
   "files": [
-    "./CHANGELOG.md",
     "./lib/*"
   ],
   "exports": {
