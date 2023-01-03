@@ -1,7 +1,7 @@
 {
   "name": "use-memo-map",
   "version": "0.0.0-0",
-  "description": "",
+  "description": "Memoizes calls to array map function similar to React.useMemo. Memoized results will survive next render.",
   "files": [
     "./lib/*"
   ],
