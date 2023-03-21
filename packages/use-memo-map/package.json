@@ -8,11 +8,13 @@
   "exports": {
     ".": {
       "import": "./lib/esmodules/index.js",
-      "require": "./lib/commonjs/index.js"
+      "require": "./lib/commonjs/index.js",
+      "types": "./lib/types/index.d.ts"
     },
     "./useMemoMap": {
       "import": "./lib/esmodules/useMemoMap.js",
-      "require": "./lib/commonjs/useMemoMap.js"
+      "require": "./lib/commonjs/useMemoMap.js",
+      "types": "./lib/types/useMemoMap.d.ts"
     }
   },
   "main": "./lib/commonjs/index.js",
