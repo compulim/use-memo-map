@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixes [#8](https://github.com/compulim/react-wrap-with/issues/8), exports typings through conditional exports, by [@compulim](https://github.com/compulim), in PR [#9](https://github.com/compulim/react-wrap-with/pull/9)
+- Fixes [#8](https://github.com/compulim/use-memo-map/issues/8), exports typings through conditional exports, by [@compulim](https://github.com/compulim), in PR [#9](https://github.com/compulim/use-memo-map/pull/9)
 
 ### Changed
 
