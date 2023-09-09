@@ -16,7 +16,7 @@ const App = () => {
   return (
     <ul>
       {output.map(value => (
-        <li>{value}</li>
+        <li key={value}>{value}</li>
       ))}
     </ul>
   );
