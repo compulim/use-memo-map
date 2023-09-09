@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Added type-checking for test, by [@compulim](https://github.com/compulim), in PR [#XX](https://github.com/compulim/use-memo-map/pull/XX)
-- Updates `tsconfig.json` to extend from [`@tsconfig/strictest`](https://npmjs.com/package/@tsconfig/strictest), by [@compulim](https://github.com/compulim), in PR [#XX](https://github.com/compulim/use-memo-map/pull/XX)
+- Added type-checking for test, by [@compulim](https://github.com/compulim), in PR [#16](https://github.com/compulim/use-memo-map/pull/16)
+- Updates `tsconfig.json` to extend from [`@tsconfig/strictest`](https://npmjs.com/package/@tsconfig/strictest), by [@compulim](https://github.com/compulim), in PR [#16](https://github.com/compulim/use-memo-map/pull/16)
   - Development dependencies
     - [`@types/react@18.2.21`](https://npmjs.com/package/@types/react)
     - [`@types/react-dom@18.2.7`](https://npmjs.com/package/@types/react-dom)
@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Updated `exports` field to workaround [TypeScript resolution bug](https://github.com/microsoft/TypeScript/issues/50762), by [@compulim](https://github.com/compulim), in PR [#XX](https://github.com/compulim/use-memo-map/pull/XX)
+- Updated `exports` field to workaround [TypeScript resolution bug](https://github.com/microsoft/TypeScript/issues/50762), by [@compulim](https://github.com/compulim), in PR [#16](https://github.com/compulim/use-memo-map/pull/16)
 
 ## [0.0.3] - 2023-03-21
 
