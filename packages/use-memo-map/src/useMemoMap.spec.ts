@@ -112,15 +112,16 @@ test('should forget after mapper changed', () => {
 test('should memo the callback', () => {
   // GIVEN: Maps for the first time.
   const { rerender, result } = renderHook(() => useMemoMap(x => x));
+  const prev = result.current;
 
   // WHEN: Maps for the second time.
   rerender();
 
   // THEN: It should return a callback function.
-  expect(typeof result.all[0]).toBe('function');
+  expect(typeof prev).toBe('function');
 
   // THEN: It should return the same callback function twice.
-  expect(result.all[0]).toBe(result.all[1]);
+  expect(prev).toBe(result.current);
 });
 
 test('should use custom equality function', () => {
