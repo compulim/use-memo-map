@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import useMemoMap from './useMemoMap';
 
 test('simple scenario', () => {

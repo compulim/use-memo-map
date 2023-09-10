@@ -13,34 +13,21 @@
   },
   "author": "William Wong (https://github.com/compulim)",
   "license": "MIT",
-  "pinDependencies": {
-    "@types/react": [
-      "17",
-      "@testing-library/react-hooks@8.0.1 does not support react@>=18"
-    ],
-    "react": [
-      "17",
-      "@testing-library/react-hooks@8.0.1 does not support react@>=18"
-    ],
-    "react-test-renderer": [
-      "17",
-      "@testing-library/react-hooks@8.0.1 does not support react@>=18"
-    ]
+  "localPeerDependencies": {
+    "use-memo-map": "^0.0.0-0"
   },
+  "pinDependencies": {},
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
-    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/react": "^14.0.0",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
-    "react": "^17.0.2",
-    "react-test-renderer": "^17.0.2",
+    "react": "^18.2.0",
+    "react-test-renderer": "^18.2.0",
     "typescript": "^5.1.6"
   },
-  "localPeerDependencies": {
-    "use-memo-map": "file:../use-memo-map/use-memo-map-0.0.0-0.tgz"
-  },
   "dependencies": {
-    "use-memo-map": "file:../use-memo-map/use-memo-map-0.0.0-0.tgz"
+    "use-memo-map": "^0.0.0-0"
   }
 }
