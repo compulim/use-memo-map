@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 
-const { renderHook } = require('@testing-library/react-hooks');
+const { renderHook } = require('@testing-library/react');
 const { default: useMemoMap } = require('use-memo-map/useMemoMap');
 
 test('simple scenario', () => {
