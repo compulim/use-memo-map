@@ -29,6 +29,11 @@
   },
   "main": "./lib/commonjs/index.js",
   "typings": "./lib/commonjs-types/index.d.ts",
+  "workspaces": [
+    "packages/use-memo-map",
+    "packages/pages",
+    "packages/integration-test"
+  ],
   "scripts": {
     "build": "npm run build:babel:commonjs && npm run build:babel:esmodules && npm run build:typescript:commonjs && npm run build:typescript:esmodules",
     "build:babel:commonjs": "babel src --config-file ./babel.commonjs.config.json --extensions .ts,.tsx --out-dir ./lib/commonjs/",
