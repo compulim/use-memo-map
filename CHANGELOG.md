@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.0.4] - 2023-10-09
 
 ### Changed
 
@@ -44,10 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.3] - 2023-03-21
 
-### Fixed
-
-- Fixes [#8](https://github.com/compulim/use-memo-map/issues/8), exports typings through conditional exports, by [@compulim](https://github.com/compulim), in PR [#9](https://github.com/compulim/use-memo-map/pull/9)
-
 ### Changed
 
 - Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#7](https://github.com/compulim/use-memo-map-pull/7)
@@ -68,6 +64,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       - [`prettier@2.8.4`](https://npmjs.com/package/prettier)
       - [`typescript@4.9.5`](https://npmjs.com/package/typescript)
 
+### Fixed
+
+- Fixes [#8](https://github.com/compulim/use-memo-map/issues/8), exports typings through conditional exports, by [@compulim](https://github.com/compulim), in PR [#9](https://github.com/compulim/use-memo-map/pull/9)
+
 ## [0.0.2] - 2023-01-03
 
 ### Changed
@@ -79,3 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - First public release
+
+[0.0.4]: https://github.com/compulim/use-memo-map/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/compulim/use-memo-map/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/compulim/use-memo-map/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/compulim/use-memo-map/releases/tag/v0.0.1
