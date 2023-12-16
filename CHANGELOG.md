@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#25](https://github.com/compulim/use-memo-map-pull/25)
+   - Production dependencies
+      - [`@babel/runtime-corejs3@7.23.6`](https://npmjs.com/package/@babel/runtime-corejs3)
+      - [`use-ref-from@0.0.3`](https://npmjs.com/package/use-ref-from)
+   - Development dependencies
+      - [`@babel/cli@7.23.4`](https://npmjs.com/package/@babel/cli)
+      - [`@babel/core@7.23.6`](https://npmjs.com/package/@babel/core)
+      - [`@babel/plugin-transform-runtime@7.23.6`](https://npmjs.com/package/@babel/plugin-transform-runtime)
+      - [`@babel/preset-env@7.23.6`](https://npmjs.com/package/@babel/preset-env)
+      - [`@babel/preset-react@7.23.3`](https://npmjs.com/package/@babel/preset-react)
+      - [`@babel/preset-typescript@7.23.3`](https://npmjs.com/package/@babel/preset-typescript)
+      - [`@testing-library/react@14.1.2`](https://npmjs.com/package/@testing-library/react)
+      - [`@tsconfig/recommended@1.0.3`](https://npmjs.com/package/@tsconfig/recommended)
+      - [`@tsconfig/strictest@2.0.2`](https://npmjs.com/package/@tsconfig/strictest)
+      - [`@types/jest@29.5.11`](https://npmjs.com/package/@types/jest)
+      - [`@types/react-dom@18.2.7`](https://npmjs.com/package/@types/react-dom)
+      - [`@types/react@18.2.45`](https://npmjs.com/package/@types/react)
+      - [`@typescript-eslint/eslint-plugin@6.14.0`](https://npmjs.com/package/@typescript-eslint/eslint-plugin)
+      - [`@typescript-eslint/parser@6.14.0`](https://npmjs.com/package/@typescript-eslint/parser)
+      - [`esbuild@0.19.2`](https://npmjs.com/package/esbuild)
+      - [`eslint-plugin-prettier@5.0.1`](https://npmjs.com/package/eslint-plugin-prettier)
+      - [`eslint@8.56.0`](https://npmjs.com/package/eslint)
+      - [`jest-environment-jsdom@29.7.0`](https://npmjs.com/package/jest-environment-jsdom)
+      - [`jest@29.7.0`](https://npmjs.com/package/jest)
+      - [`prettier@3.1.1`](https://npmjs.com/package/prettier)
+      - [`react-dom@18.2.0`](https://npmjs.com/package/react-dom)
+      - [`react-test-renderer@18.2.0`](https://npmjs.com/package/react-test-renderer)
+      - [`react@18.2.0`](https://npmjs.com/package/react)
+      - [`typescript@5.3.3`](https://npmjs.com/package/typescript)
+
 ## [0.0.4] - 2023-10-09
 
 ### Changed
