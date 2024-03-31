@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       - [`react-test-renderer@18.2.0`](https://npmjs.com/package/react-test-renderer)
       - [`react@18.2.0`](https://npmjs.com/package/react)
       - [`typescript@5.4.3`](https://npmjs.com/package/typescript)
+- Updated pull request validation to test against various React versions, in PR [#28](https://github.com/compulim/use-memo-map/pull/28)
+   - Moved from JSX Runtime to JSX Classic to support testing against React 16
 
 ## [0.0.4] - 2023-10-09
 
