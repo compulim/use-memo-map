@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#25](https://github.com/compulim/use-memo-map-pull/25) and [#27](https://github.com/compulim/use-memo-map-pull/27)
+- Relaxed peer dependencies requirements to `react@>=16.8.0`, by [@compulim](https://github.com/compulim) in PR [#29](https://github.com/compulim/use-memo-map/pull/29)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#25](https://github.com/compulim/use-memo-map-pull/25), [#27](https://github.com/compulim/use-memo-map-pull/27), and [#29](https://github.com/compulim/use-memo-map/pull/29)
    - Production dependencies
       - [`@babel/runtime-corejs3@7.24.1`](https://npmjs.com/package/@babel/runtime-corejs3)
-      - [`use-ref-from@0.0.3`](https://npmjs.com/package/use-ref-from)
+      - [`use-ref-from@0.1.0`](https://npmjs.com/package/use-ref-from)
    - Development dependencies
       - [`@babel/cli@7.24.1`](https://npmjs.com/package/@babel/cli)
       - [`@babel/core@7.24.3`](https://npmjs.com/package/@babel/core)
