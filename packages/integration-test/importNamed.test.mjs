@@ -1,7 +1,12 @@
 /** @jest-environment jsdom */
 
-import { renderHook } from '@testing-library/react';
 import useMemoMap from 'use-memo-map/useMemoMap';
+
+const renderHook =
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('@testing-library/react').renderHook ||
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('@testing-library/react-hooks').renderHook;
 
 test('simple scenario', () => {
   // GIVEN: A "multiply by 10" mapper.
