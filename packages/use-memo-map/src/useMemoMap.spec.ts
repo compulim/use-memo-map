@@ -1,7 +1,15 @@
 /** @jest-environment jsdom */
 
-import { renderHook } from '@testing-library/react';
 import useMemoMap from './useMemoMap';
+
+const renderHook: <T, P>(
+  render: (props: P) => T,
+  options?: { initialProps: P }
+) => { rerender: (props?: P) => void; result: { current: T } } =
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('@testing-library/react').renderHook ||
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('@testing-library/react-hooks').renderHook;
 
 test('simple scenario', () => {
   // GIVEN: A mapper of x *= 10.
