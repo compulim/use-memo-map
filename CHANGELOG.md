@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Breaking changes
+
+- Removed named exports, please import the defaults instead
+   - Use `import { useMemoMap } from 'use-memo-map'` instead
+- Moved build tools from Babel to tsup/esbuild
+
 ## [0.1.0] - 2024-04-01
 
 - Relaxed peer dependencies requirements to `react@>=16.8.0`, by [@compulim](https://github.com/compulim) in PR [#29](https://github.com/compulim/use-memo-map/pull/29)
