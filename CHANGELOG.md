@@ -13,6 +13,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - Use `import { useMemoMap } from 'use-memo-map'` instead
 - Moved build tools from Babel to tsup/esbuild
 
+### Changed
+
+- Bumped dependencies, in PR [#38](https://github.com/compulim/use-memo-map/pull/38)
+   - Development dependencies
+      - [`@babel/preset-env@7.24.6`](https://npmjs.com/package/@babel/preset-env/v/7.24.6)
+      - [`@babel/preset-react@7.24.6`](https://npmjs.com/package/@babel/preset-react/v/7.24.6)
+      - [`@babel/preset-typescript@7.24.6`](https://npmjs.com/package/@babel/preset-typescript/v/7.24.6)
+      - [`@testing-library/react@15.0.7`](https://npmjs.com/package/@testing-library/react/v/15.0.7)
+      - [`@tsconfig/recommended@1.0.6`](https://npmjs.com/package/@tsconfig/recommended/v/1.0.6)
+      - [`@tsconfig/strictest@2.0.5`](https://npmjs.com/package/@tsconfig/strictest/v/2.0.5)
+      - [`@types/react@18.3.3`](https://npmjs.com/package/@types/react/v/18.3.3)
+      - [`@types/react-dom@18.3.0`](https://npmjs.com/package/@types/react-dom/v/18.3.0)
+      - [`esbuild@0.21.4`](https://npmjs.com/package/esbuild/v/0.21.4)
+      - [`react@18.3.1`](https://npmjs.com/package/react/v/18.3.1)
+      - [`react-dom@18.3.1`](https://npmjs.com/package/react-dom/v/18.3.1)
+      - [`react-test-renderer@18.3.1`](https://npmjs.com/package/react-test-renderer/v/18.3.1)
+      - [`typescript@5.4.5`](https://npmjs.com/package/typescript/v/5.4.5)
+
 ## [0.1.0] - 2024-04-01
 
 - Relaxed peer dependencies requirements to `react@>=16.8.0`, by [@compulim](https://github.com/compulim) in PR [#29](https://github.com/compulim/use-memo-map/pull/29)
