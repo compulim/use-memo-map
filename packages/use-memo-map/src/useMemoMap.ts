@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useRefFrom } from 'use-ref-from';
 
-import usePrevious from './private/usePrevious';
+import usePrevious from './private/usePrevious.ts';
 
 type UseMemoMapOptions<T> = {
   itemEquality?: (this: readonly T[], x: T, y: T) => boolean;

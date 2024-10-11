@@ -1,3 +1,3 @@
-import useMemoMap from './useMemoMap';
+import useMemoMap from './useMemoMap.ts';
 
 export { useMemoMap };
