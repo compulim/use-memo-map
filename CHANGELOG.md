@@ -7,14 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Breaking changes
+### Removed
 
-- Removed named exports, please import the defaults instead
+- 💢 Removed named exports, please import the defaults instead
    - Use `import { useMemoMap } from 'use-memo-map'` instead
-- Moved build tools from Babel to tsup/esbuild
 
 ### Changed
 
+- 💢 Moved build tools from Babel to tsup/esbuild
 - Bumped dependencies, in PR [#38](https://github.com/compulim/use-memo-map/pull/38), and [#41](https://github.com/compulim/use-memo-map/pull/41)
    - Development dependencies
       - [`@babel/preset-env@7.24.7`](https://npmjs.com/package/@babel/preset-env/v/7.24.7)
