@@ -7,6 +7,7 @@ export default defineConfig([
       'use-memo-map': './src/index.ts'
     },
     format: ['cjs', 'esm'],
-    sourcemap: true
+    sourcemap: true,
+    target: 'esnext'
   }
 ]);
