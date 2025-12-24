@@ -1,5 +1,7 @@
 /** @jest-environment jsdom */
 
+/// <reference types="jest" />
+
 import useMemoMap from './useMemoMap';
 
 const renderHook: <T, P>(
