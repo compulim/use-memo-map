@@ -48,7 +48,21 @@
     }
   },
   "localPeerDependencies": {
-    "use-memo-map": "^0.0.0-0"
+    "use-memo-map": "0.0.0-0"
+  },
+  "pinDependencies": {
+    "@types/react": [
+      "18"
+    ],
+    "@types/react-dom": [
+      "18"
+    ],
+    "react": [
+      "18"
+    ],
+    "react-dom": [
+      "18"
+    ]
   },
   "devDependencies": {
     "@babel/preset-env": "^7.25.8",
@@ -65,6 +79,6 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "use-memo-map": "^0.0.0-0"
+    "use-memo-map": "0.0.0-0"
   }
 }
