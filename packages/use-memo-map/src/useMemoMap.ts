@@ -42,7 +42,7 @@ export default function useMemoMap<T = unknown, R = unknown>(
       const { current: mapper } = mapperRef;
       const { current: thisCalls } = thisCallsRef;
 
-      return <readonly R[]>Object.freeze(
+      return Object.freeze(
         array.map<R>(item => {
           const thisCall = thisCalls.find(entry => itemEquality.call(array, item, entry[0]));
 

@@ -1,21 +1,11 @@
-/** @jest-environment jsdom */
-
-/// <reference types="jest" />
-
-import useMemoMap from './useMemoMap';
-
-const renderHook: <T, P>(
-  render: (props: P) => T,
-  options?: { initialProps: P }
-) => { rerender: (props?: P) => void; result: { current: T } } =
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('@testing-library/react').renderHook ||
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('@testing-library/react-hooks').renderHook;
+import { renderHook } from '@compulim/test-harness/renderHook';
+import { expect } from 'expect';
+import { mock, test } from 'node:test';
+import useMemoMap from './useMemoMap.ts';
 
 test('simple scenario', () => {
   // GIVEN: A mapper of x *= 10.
-  const mapper = jest.fn(x => x * 10);
+  const mapper = mock.fn(x => x * 10);
 
   // WHEN: Maps [1, 2, 3].
   const { rerender, result } = renderHook(({ input }) => useMemoMap(mapper)(input), {
@@ -26,13 +16,13 @@ test('simple scenario', () => {
   expect(result.current).toEqual([10, 20, 30]);
 
   // THEN: It should called the mapper 3 times in total.
-  expect(mapper).toHaveBeenCalledTimes(3);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2, 3]);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2, 3]);
-  expect(mapper).toHaveBeenNthCalledWith(3, 3, -1, [1, 2, 3]);
-  expect(mapper).toHaveNthReturnedWith(1, 10);
-  expect(mapper).toHaveNthReturnedWith(2, 20);
-  expect(mapper).toHaveNthReturnedWith(3, 30);
+  expect(mapper.mock.callCount()).toBe(3);
+  expect(mapper.mock.calls[0]?.arguments).toEqual([1, -1, [1, 2, 3]]);
+  expect(mapper.mock.calls[1]?.arguments).toEqual([2, -1, [1, 2, 3]]);
+  expect(mapper.mock.calls[2]?.arguments).toEqual([3, -1, [1, 2, 3]]);
+  expect(mapper.mock.calls[0]?.result).toBe(10);
+  expect(mapper.mock.calls[1]?.result).toBe(20);
+  expect(mapper.mock.calls[2]?.result).toBe(30);
 
   // WHEN: Maps [1, 2, 3, 4].
   rerender({ input: [1, 2, 3, 4] });
@@ -41,14 +31,14 @@ test('simple scenario', () => {
   expect(result.current).toEqual([10, 20, 30, 40]);
 
   // THEN: It should called the mapper 4 times in total.
-  expect(mapper).toHaveBeenCalledTimes(4);
-  expect(mapper).toHaveBeenNthCalledWith(4, 4, -1, [1, 2, 3, 4]);
-  expect(mapper).toHaveNthReturnedWith(4, 40);
+  expect(mapper.mock.callCount()).toBe(4);
+  expect(mapper.mock.calls[3]?.arguments).toEqual([4, -1, [1, 2, 3, 4]]);
+  expect(mapper.mock.calls[3]?.result).toEqual(40);
 });
 
 test('should not remember across more than 2 renders', () => {
   // GIVEN: A mapper of x *= 10.
-  const mapper = jest.fn(x => x * 10);
+  const mapper = mock.fn(x => x * 10);
 
   // WHEN: Maps with [1, 2].
   const { rerender, result } = renderHook(({ input }) => useMemoMap(mapper)(input), {
@@ -59,11 +49,11 @@ test('should not remember across more than 2 renders', () => {
   expect(result.current).toEqual([10, 20]);
 
   // THEN: It should call the mapper 2 times in total.
-  expect(mapper).toHaveBeenCalledTimes(2);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2]);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2]);
-  expect(mapper).toHaveNthReturnedWith(1, 10);
-  expect(mapper).toHaveNthReturnedWith(2, 20);
+  expect(mapper.mock.callCount()).toBe(2);
+  expect(mapper.mock.calls[0]?.arguments).toEqual([1, -1, [1, 2]]);
+  expect(mapper.mock.calls[1]?.arguments).toEqual([2, -1, [1, 2]]);
+  expect(mapper.mock.calls[0]?.result).toEqual(10);
+  expect(mapper.mock.calls[1]?.result).toEqual(20);
 
   // WHEN: Maps [2, 3].
   rerender({ input: [2, 3] });
@@ -72,9 +62,9 @@ test('should not remember across more than 2 renders', () => {
   expect(result.current).toEqual([20, 30]);
 
   // THEN: It should call the mapper 3 times in total.
-  expect(mapper).toHaveBeenCalledTimes(3);
-  expect(mapper).toHaveBeenNthCalledWith(3, 3, -1, [2, 3]);
-  expect(mapper).toHaveNthReturnedWith(3, 30);
+  expect(mapper.mock.callCount()).toBe(3);
+  expect(mapper.mock.calls[2]?.arguments).toEqual([3, -1, [2, 3]]);
+  expect(mapper.mock.calls[2]?.result).toBe(30);
 
   // WHEN: Maps [1, 2] again.
   rerender({ input: [1, 2] });
@@ -83,15 +73,15 @@ test('should not remember across more than 2 renders', () => {
   expect(result.current).toEqual([10, 20]);
 
   // THEN: It should call the mapper 4 times in total.
-  expect(mapper).toHaveBeenCalledTimes(4);
-  expect(mapper).toHaveBeenNthCalledWith(4, 1, -1, [1, 2]);
-  expect(mapper).toHaveNthReturnedWith(4, 10);
+  expect(mapper.mock.callCount()).toBe(4);
+  expect(mapper.mock.calls[3]?.arguments).toEqual([1, -1, [1, 2]]);
+  expect(mapper.mock.calls[3]?.result).toBe(10);
 });
 
 test('should forget after mapper changed', () => {
   // GIVEN: 2 mappers: x *= 10 and x *= 11.
-  const mapper1 = jest.fn(x => x * 10);
-  const mapper2 = jest.fn(x => x * 11);
+  const mapper1 = mock.fn(x => x * 10);
+  const mapper2 = mock.fn(x => x * 11);
 
   // WHEN: Maps [1, 2, 3] with x *= 10.
   const { rerender, result } = renderHook(({ input, mapper }) => useMemoMap(mapper)(input), {
@@ -105,8 +95,8 @@ test('should forget after mapper changed', () => {
   expect(result.current).toEqual([10, 20, 30]);
 
   // THEN: It should have called the mappers 3 times and 0 times respectively.
-  expect(mapper1).toHaveBeenCalledTimes(3);
-  expect(mapper2).toHaveBeenCalledTimes(0);
+  expect(mapper1.mock.callCount()).toBe(3);
+  expect(mapper2.mock.callCount()).toBe(0);
 
   // WHEN: Maps [1, 2, 3] with x *= 11.
   rerender({ input: [1, 2, 3], mapper: mapper2 });
@@ -115,8 +105,8 @@ test('should forget after mapper changed', () => {
   expect(result.current).toEqual([11, 22, 33]);
 
   // THEN: It should have called the mappers 3 times and 3 times respectively.
-  expect(mapper1).toHaveBeenCalledTimes(3);
-  expect(mapper2).toHaveBeenCalledTimes(3);
+  expect(mapper1.mock.callCount()).toBe(3);
+  expect(mapper2.mock.callCount()).toBe(3);
 });
 
 test('should memo the callback', () => {
@@ -125,7 +115,7 @@ test('should memo the callback', () => {
   const prev = result.current;
 
   // WHEN: Maps for the second time.
-  rerender();
+  rerender({});
 
   // THEN: It should return a callback function.
   expect(typeof prev).toBe('function');
@@ -135,7 +125,7 @@ test('should memo the callback', () => {
 });
 
 test('should use custom equality function', () => {
-  const mapper = jest.fn(x => x * 10);
+  const mapper = mock.fn(x => x * 10);
 
   // WHEN: Creates a map with a customequality function of odd vs. even.
   const { result } = renderHook(() =>
@@ -148,15 +138,15 @@ test('should use custom equality function', () => {
   expect(result.current).toEqual([10, 20, 10]);
 
   // THEN: It should have called the mapper 2 times.
-  expect(mapper).toHaveBeenCalledTimes(2);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2, 3]);
-  expect(mapper).toHaveNthReturnedWith(1, 10);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2, 3]);
-  expect(mapper).toHaveNthReturnedWith(2, 20);
+  expect(mapper.mock.callCount()).toBe(2);
+  expect(mapper.mock.calls[0]?.arguments).toEqual([1, -1, [1, 2, 3]]);
+  expect(mapper.mock.calls[0]?.result).toBe(10);
+  expect(mapper.mock.calls[1]?.arguments).toEqual([2, -1, [1, 2, 3]]);
+  expect(mapper.mock.calls[1]?.result).toBe(20);
 });
 
 test('call mapper 2 times should memoize all of them in a single pool', () => {
-  const mapper = jest.fn(x => x * 10);
+  const mapper = mock.fn(x => x * 10);
 
   // WHEN: Maps [1, 2] and [2, 3].
   const { rerender, result } = renderHook(() => {
@@ -172,16 +162,16 @@ test('call mapper 2 times should memoize all of them in a single pool', () => {
   ]);
 
   // THEN: It should have called the mapper 3 times.
-  expect(mapper).toHaveBeenCalledTimes(3);
-  expect(mapper).toHaveBeenNthCalledWith(1, 1, -1, [1, 2]);
-  expect(mapper).toHaveNthReturnedWith(1, 10);
-  expect(mapper).toHaveBeenNthCalledWith(2, 2, -1, [1, 2]);
-  expect(mapper).toHaveNthReturnedWith(2, 20);
-  expect(mapper).toHaveBeenNthCalledWith(3, 3, -1, [2, 3]);
-  expect(mapper).toHaveNthReturnedWith(3, 30);
+  expect(mapper.mock.callCount()).toBe(3);
+  expect(mapper.mock.calls[0]?.arguments).toEqual([1, -1, [1, 2]]);
+  expect(mapper.mock.calls[0]?.result).toBe(10);
+  expect(mapper.mock.calls[1]?.arguments).toEqual([2, -1, [1, 2]]);
+  expect(mapper.mock.calls[1]?.result).toBe(20);
+  expect(mapper.mock.calls[2]?.arguments).toEqual([3, -1, [2, 3]]);
+  expect(mapper.mock.calls[2]?.result).toBe(30);
 
   // WHEN: Maps again.
-  rerender();
+  rerender({});
 
   // THEN: It should return [[10, 20], [20, 30]].
   expect(result.current).toEqual([
@@ -190,14 +180,14 @@ test('call mapper 2 times should memoize all of them in a single pool', () => {
   ]);
 
   // THEN: It should have called the mapper 3 times.
-  expect(mapper).toHaveBeenCalledTimes(3);
+  expect(mapper.mock.callCount()).toBe(3);
 });
 
 test('should call mapper with thisArg', () => {
   const input = [1, 2, 3];
 
   // GIVEN: A mapper of x *= 10 with arguments check.
-  const mapper = jest.fn(function (x, index, array) {
+  const mapper = mock.fn(function (this: readonly number[], x, index, array) {
     expect(this).toBe(input);
     expect(index).toBe(-1);
     expect(array).toBe(input);
@@ -212,12 +202,12 @@ test('should call mapper with thisArg', () => {
   expect(result.current).toEqual([10, 20, 30]);
 
   // THEN: It should called the mapper 3 times in total.
-  expect(mapper).toHaveBeenCalledTimes(3);
+  expect(mapper.mock.callCount()).toBe(3);
 });
 
 test('should not cache with changing mapper function', () => {
   // GIVEN: A "multiply by 10" mapper.
-  const multiplyBy10 = jest.fn(x => x * 10);
+  const multiplyBy10 = mock.fn(x => x * 10);
 
   // WHEN: Maps [1, 2, 3] with a new function.
   const { rerender, result } = renderHook(() => useMemoMap(x => multiplyBy10(x))([1, 2, 3]));
@@ -226,14 +216,14 @@ test('should not cache with changing mapper function', () => {
   expect(result.current).toEqual([10, 20, 30]);
 
   // THEN: It should called the mapper 3 times in total.
-  expect(multiplyBy10).toHaveBeenCalledTimes(3);
+  expect(multiplyBy10.mock.callCount()).toBe(3);
 
   // WHEN: Re-render.
-  rerender();
+  rerender({});
 
   // THEN: It should return [10, 20, 30].
   expect(result.current).toEqual([10, 20, 30]);
 
   // THEN: It should called the mapper 6 times in total.
-  expect(multiplyBy10).toHaveBeenCalledTimes(6);
+  expect(multiplyBy10.mock.callCount()).toBe(6);
 });
