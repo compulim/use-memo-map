@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - 👷🏻 Test framework moved to Node.js test runner, by [@compulim](https://github.com/compulim) in PR [#54](https://github.com/compulim/use-memo-map/pull/54)
+- Bumped dependencies, in PR [#55](https://github.com/compulim/use-memo-map/pull/55)
+  - Development dependencies
+    - [`@tsconfig/strictest@2.0.8`](https://npmjs.com/package/@tsconfig/strictest/v/2.0.8)
+    - [`@types/react@18.3.27`](https://npmjs.com/package/@types/react/v/18.3.27)
+    - [`@types/react-dom@18.3.7`](https://npmjs.com/package/@types/react-dom/v/18.3.7)
+    - [`eslint-plugin-react@7.37.5`](https://npmjs.com/package/eslint-plugin-react/v/7.37.5)
+    - [`prettier@3.7.4`](https://npmjs.com/package/prettier/v/3.7.4)
+    - [`typescript@5.9.3`](https://npmjs.com/package/typescript/v/5.9.3)
 
 ## [0.2.0] - 2025-12-24
 

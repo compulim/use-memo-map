@@ -67,7 +67,6 @@
       "18"
     ]
   },
-  "peerDependencies": {},
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.8",
     "@types/react": "^18.3.27",
