@@ -1,12 +1,7 @@
-/** @jest-environment jsdom */
-
+const { renderHook } = require('@compulim/test-harness/renderHook');
+const { expect } = require('expect');
+const { test } = require('node:test');
 const { useMemoMap } = require('use-memo-map');
-
-const renderHook =
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('@testing-library/react').renderHook ||
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('@testing-library/react-hooks').renderHook;
 
 test('simple scenario', () => {
   // GIVEN: A "multiply by 10" mapper.
